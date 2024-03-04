@@ -36,7 +36,7 @@ class ApiService {
     required Map<String, dynamic> body,
     bool doesNotNeedAuth = false,
   }) async {
-    _tokenString = await sharedPreferencesService.getString(keyToken);
+    _tokenString = sharedPreferencesService.getString(keyToken);
     await connectivityService.checkConnection();
     if (connectivityService.hasConnection) {
       log.i('Making request to $string');
@@ -61,7 +61,7 @@ class ApiService {
 
         if (e.response?.data is Map) {
           msg = e.response!.data['message'].toString();
-          debugPrint('message:' + msg);
+          debugPrint('message:$msg');
         }
         if (e.response?.data?.containsKey('errors')) {
           if (e.response?.data['errors'].containsKey('email') &&
@@ -113,7 +113,7 @@ class ApiService {
     String string, {
     Map<String, dynamic>? queryParameters,
   }) async {
-    _tokenString = await sharedPreferencesService.getString(keyToken);
+    _tokenString = sharedPreferencesService.getString(keyToken);
 
     connectivityService.checkConnection();
     if (connectivityService.hasConnection) {
@@ -140,7 +140,7 @@ class ApiService {
         if (e.response?.data is Map) {
           if (e.response?.data?.containsKey('detail')) {
             msg = e.response!.data['detail'].toString();
-            debugPrint('message:' + msg);
+            debugPrint('message:$msg');
           }
         }
         snackBarService.showCustomSnackBar(
